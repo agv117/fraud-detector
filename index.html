@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Ledger Autopsy — could a detector have caught Enron?</title>
+    <meta
+      name="description"
+      content="A forensic accountant, run point-in-time over the real SEC filings of history's biggest frauds and a set of healthy controls. The honest scoreboard, false positives and misses included. Every number links to the filing. Built by Anand Vaghasia."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700;9..144,900&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=JetBrains+Mono:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css?v=1" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230b0c0e'/%3E%3Cpath d='M4 18 h6 l2 -8 l3 13 l3 -9 l2 4 h5' fill='none' stroke='%23ff453a' stroke-width='1.7' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E"
+    />
+  </head>
+  <body>
+    <div class="grain" aria-hidden="true"></div>
+
+    <nav class="topnav">
+      <div class="wrap nav-inner">
+        <a
+          class="logo"
+          href="#"
+          data-nav="top"
+          aria-label="The Ledger Autopsy, home"
+        >
+          <svg class="logo-mark" viewBox="0 0 48 24" aria-hidden="true">
+            <path
+              d="M2 14 h8 l2.5 -10 l4 20 l3.5 -13 l2.5 6 h4"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linejoin="round"
+              stroke-linecap="round"
+            />
+            <path
+              d="M30 14 h16"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              opacity="0.4"
+            />
+          </svg>
+          <span class="logo-word">The Ledger <em>Autopsy</em></span>
+        </a>
+        <div class="nav-links">
+          <a href="#" data-nav="top">Scoreboard</a>
+          <a href="#method">Method</a>
+          <a href="#limits">Limits</a>
+          <a
+            class="nav-git"
+            href="https://github.com/agv117/fraud-detector"
+            target="_blank"
+            rel="noopener"
+            >Source</a
+          >
+        </div>
+      </div>
+    </nav>
+
+    <header class="hero" id="home">
+      <div class="wrap">
+        <div class="kicker">A forensic accountant, run point-in-time</div>
+        <h1>Could a detector have caught <em>Enron</em>?</h1>
+        <p class="dek">
+          I pointed a transparent red-flag model at the real SEC filings of
+          history's biggest frauds and a set of healthy companies, as of the
+          last annual report before anyone knew. Then I published the whole
+          scoreboard, <b>the false positive and the miss included</b>. The
+          honest answer is not a clean yes.
+        </p>
+
+        <div class="board" id="board" aria-live="polite">
+          <div class="board-load">Loading the case ledger…</div>
+        </div>
+      </div>
+    </header>
+
+    <main class="wrap">
+      <section id="ledger-sec">
+        <div class="sec-head">
+          <h2>The case ledger</h2>
+          <div class="sub" id="ledger-sub">
+            Nine companies, ranked by the detector's red-flag score
+          </div>
+        </div>
+        <div class="ledger-head" aria-hidden="true">
+          <span>#</span><span>Company</span><span>Red-flag score</span
+          ><span>Detector</span><span>Reality</span><span>Result</span
+          ><span></span>
+        </div>
+        <div class="ledger" id="ledger"></div>
+      </section>
+
+      <section id="case" class="case hidden"></section>
+    </main>
+
+    <section class="method" id="method">
+      <div class="wrap">
+        <h2>How the autopsy works</h2>
+        <p class="sub">
+          The point of this project is not to claim the machine wins. It is to
+          show, honestly, what the numbers could and could not say.
+        </p>
+        <div class="method-grid">
+          <div class="m-card">
+            <h4>01 · Point in time</h4>
+            <p>
+              Each company is scored on the
+              <b>last annual report filed before the fraud was public</b>. No
+              hindsight in the inputs. Hindsight is only in knowing where to
+              look, and that bias is the whole conversation below.
+            </p>
+          </div>
+          <div class="m-card">
+            <h4>02 · A transparent rubric, not a black box</h4>
+            <p>
+              The red-flag score is a <b>deterministic model</b>, not an opaque
+              number an AI made up. Every point traces to a filing figure:
+              accruals, cash conversion, revenue growth, capital-spend versus
+              cash, receivables, leverage. You can see exactly what fired and
+              why.
+            </p>
+          </div>
+          <div class="m-card">
+            <h4>03 · Real filings, cited</h4>
+            <p>
+              Controls come straight from <b>SEC XBRL</b>. The pre-XBRL frauds
+              (Enron, WorldCom) are transcribed from the actual 10-K and every
+              figure links to it. Wirecard is a foreign filer shown with that
+              gap stated out loud, not hidden.
+            </p>
+          </div>
+          <div class="m-card">
+            <h4>04 · Where Claude comes in</h4>
+            <p>
+              The quantitative score is arithmetic. Claude Code did the forensic
+              reading around it: pulling filings, encoding the signals, and
+              writing the <b>point-in-time memo</b> on each case from the
+              footnotes, labelled as the qualitative read it is.
+            </p>
+          </div>
+          <div class="m-card">
+            <h4>05 · Scored against reality</h4>
+            <p>
+              Ground truth is known: three of these were frauds that collapsed,
+              one more too, and four are still-running honest companies. The
+              detector's verdict is graded into a real
+              <b>confusion matrix</b>, true and false, hit and miss.
+            </p>
+          </div>
+          <div class="m-card">
+            <h4>06 · Honest by construction</h4>
+            <p>
+              The controls include a company the detector <b>wrongly flags</b>,
+              and the frauds include one it <b>misses entirely</b>. Those two
+              cells are not failures of the demo. They are the finding.
+            </p>
+          </div>
+        </div>
+        <div class="method-links">
+          <a
+            href="https://github.com/agv117/fraud-detector"
+            target="_blank"
+            rel="noopener"
+            >View the source and the model on GitHub</a
+          >
+          <a
+            class="ghost"
+            href="https://www.sec.gov/edgar/search/"
+            target="_blank"
+            rel="noopener"
+            >SEC EDGAR</a
+          >
+        </div>
+      </div>
+    </section>
+
+    <section class="limits" id="limits">
+      <div class="wrap">
+        <h2>What this cannot tell you</h2>
+        <ul class="limit-list">
+          <li>
+            <b>Hindsight is baked into the question.</b> I already knew which
+            companies were frauds, so I knew where to point the model.
+            Real-time, blind, across thousands of filers, the false-positive
+            rate would be far higher than it looks here.
+          </li>
+          <li>
+            <b>A flag is a question, not a verdict.</b> Netflix is flagged and
+            is a perfectly honest company. Aggressive-looking accounting and
+            fraud can produce the same ratios. The tool raises a hand; it does
+            not convict.
+          </li>
+          <li>
+            <b>The best frauds are invisible to the filings.</b> Wirecard's
+            numbers looked pristine because the lie was cash that did not exist.
+            You cannot catch a missing asset by reading the assets that were
+            reported.
+          </li>
+          <li>
+            <b>Small sample, curated.</b> Nine companies is a teaching set, not
+            a validated screen. The thresholds were chosen to be reasonable, not
+            optimized, and the matrix would move on a bigger, blinder universe.
+          </li>
+          <li>
+            <b>Filings lag and are self-reported.</b> Annual reports arrive
+            months after year-end and describe what management chose to
+            disclose. This is a read of the paper trail, not the ground truth.
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <footer>
+      <div class="wrap">
+        <div class="foot-main">
+          <span>Built by <b>Anand Vaghasia</b></span>
+          <span class="foot-dot">·</span>
+          <a
+            class="foot-netryse"
+            href="https://netryse.com"
+            target="_blank"
+            rel="noopener"
+            >Powered by NetRyse</a
+          >
+        </div>
+        <div class="foot-fine">
+          Data via SEC EDGAR XBRL and the primary 10-K filings, plus one foreign
+          filer shown with that gap noted · figures are self-reported and lag ·
+          a red-flag score is not an accusation and this is not financial or
+          legal advice ·
+          <a href="https://anandvaghasia.com">anandvaghasia.com</a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="app.js?v=1"></script>
+  </body>
+</html>

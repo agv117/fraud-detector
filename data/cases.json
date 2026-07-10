@@ -1,0 +1,1732 @@
+{
+  "generated": "2026-07-10",
+  "threshold": 40,
+  "n": 9,
+  "matrix": {
+    "TP": 3,
+    "FP": 1,
+    "FN": 1,
+    "TN": 4
+  },
+  "metrics": {
+    "precision": 0.75,
+    "recall": 0.75,
+    "accuracy": 0.7777777777777778
+  },
+  "cases": [
+    {
+      "id": "enron",
+      "name": "Enron Corp.",
+      "sector": "Energy",
+      "currency": "USD",
+      "ticker": "ENE",
+      "cik": "1024401",
+      "point_in_time_year": 2000,
+      "collapse_year": 2001,
+      "source": {
+        "label": "Enron FY2000 Form 10-K (filed 2001-04-02, the last annual report before collapse)",
+        "url": "https://www.sec.gov/Archives/edgar/data/1024401/000102440101500010/ene10-k.txt"
+      },
+      "outcome": {
+        "truth": "fraud",
+        "headline": "Bankrupt Dec 2001. ~$74B in shareholder value erased; ~$63B in assets, the largest US bankruptcy at the time.",
+        "what": "Off-balance-sheet partnerships (LJM, the Raptors), mark-to-market revenue, and hidden debt. CEO and CFO convicted; auditor Arthur Andersen dissolved."
+      },
+      "memo": "In 2000 Enron looked, on the ratios, mostly fine. Cash from operations ($4.8B) actually exceeded net income ($979M), so a naive earnings-quality screen would give it a clean bill. The fraud did not live in the ratios. It lived in the footnotes: partnerships run by Enron's own CFO, debt parked off the balance sheet, and revenue that more than doubled in a year with no matching profit. This is the case that teaches the whole lesson. The numbers a screener loves were green, and the company was already dead.",
+      "financials": [
+        {
+          "year": 1998,
+          "rev": 31260,
+          "ni": 703,
+          "cfo": 1640,
+          "assets": 29350
+        },
+        {
+          "year": 1999,
+          "rev": 40112,
+          "ni": 893,
+          "cfo": 1228,
+          "assets": 33381
+        },
+        {
+          "year": 2000,
+          "rev": 100789,
+          "ni": 979,
+          "cfo": 4779,
+          "assets": 65503,
+          "liab": 54033
+        }
+      ],
+      "data_note": null,
+      "signals": [
+        {
+          "key": "accruals",
+          "label": "Accruals to assets",
+          "value": -0.058012610109460634,
+          "format": "pct",
+          "points": 0,
+          "flag": "green",
+          "explain": "Net income minus operating cash flow, over assets. A large positive gap means the profit is on paper, not in the bank. Negative is fine: the cash exceeded the reported profit.",
+          "cites": [
+            {
+              "field": "ni",
+              "line": "Net income",
+              "year": 2000,
+              "url": "https://www.sec.gov/Archives/edgar/data/1024401/000102440101500010/ene10-k.txt"
+            },
+            {
+              "field": "cfo",
+              "line": "Cash from operations",
+              "year": 2000,
+              "url": "https://www.sec.gov/Archives/edgar/data/1024401/000102440101500010/ene10-k.txt"
+            },
+            {
+              "field": "assets",
+              "line": "Total assets",
+              "year": 2000,
+              "url": "https://www.sec.gov/Archives/edgar/data/1024401/000102440101500010/ene10-k.txt"
+            }
+          ]
+        },
+        {
+          "key": "cash_conversion",
+          "label": "Cash conversion (CFO / net income)",
+          "value": 4.881511746680286,
+          "format": "x",
+          "points": 0,
+          "flag": "green",
+          "explain": "How many dollars of operating cash each dollar of reported profit turned into. Below one, and especially below zero, means the earnings are not showing up as cash.",
+          "cites": [
+            {
+              "field": "cfo",
+              "line": "Cash from operations",
+              "year": 2000,
+              "url": "https://www.sec.gov/Archives/edgar/data/1024401/000102440101500010/ene10-k.txt"
+            },
+            {
+              "field": "ni",
+              "line": "Net income",
+              "year": 2000,
+              "url": "https://www.sec.gov/Archives/edgar/data/1024401/000102440101500010/ene10-k.txt"
+            }
+          ]
+        },
+        {
+          "key": "revenue_growth",
+          "label": "One-year revenue growth",
+          "value": 1.5126894694854407,
+          "format": "pct",
+          "points": 28,
+          "flag": "red",
+          "explain": "Year-over-year change in total revenue. Explosive growth is not proof of anything, but revenue that leaps far faster than a real business can is where a detector should stop and look.",
+          "cites": [
+            {
+              "field": "rev",
+              "line": "Total revenue",
+              "year": 1999,
+              "url": "https://www.sec.gov/Archives/edgar/data/1024401/000102440101500010/ene10-k.txt"
+            },
+            {
+              "field": "rev",
+              "line": "Total revenue",
+              "year": 2000,
+              "url": "https://www.sec.gov/Archives/edgar/data/1024401/000102440101500010/ene10-k.txt"
+            }
+          ]
+        },
+        {
+          "key": "leverage",
+          "label": "Liabilities to assets",
+          "value": 0.8248935163274964,
+          "format": "pct",
+          "points": 5,
+          "flag": "amber",
+          "explain": "Share of the balance sheet financed by debt and other obligations. High and rising leverage is context, not a verdict, but it raises the stakes on everything else.",
+          "cites": [
+            {
+              "field": "liab",
+              "line": "Total liabilities",
+              "year": 2000,
+              "url": "https://www.sec.gov/Archives/edgar/data/1024401/000102440101500010/ene10-k.txt"
+            },
+            {
+              "field": "assets",
+              "line": "Total assets",
+              "year": 2000,
+              "url": "https://www.sec.gov/Archives/edgar/data/1024401/000102440101500010/ene10-k.txt"
+            }
+          ]
+        }
+      ],
+      "qual_flags": [
+        {
+          "key": "related_party",
+          "weight": 22,
+          "label": "Related-party transactions with officer-run partnerships",
+          "note": "The 2000 10-K discloses transactions with limited partnerships (LJM) whose general partner was a senior Enron officer. Related-party deals run by insiders are the single loudest governance red flag in the filing."
+        },
+        {
+          "key": "revenue_implausible",
+          "weight": 14,
+          "label": "Revenue up ~151% in one year with flat profit",
+          "note": "Total revenues jumped from $40.1B (1999) to $100.8B (2000) while net income barely moved ($893M to $979M). Revenue growing 2.5x on flat earnings points to mark-to-market and trading gross-ups, not real economics."
+        },
+        {
+          "key": "mark_to_market",
+          "weight": 12,
+          "label": "Mark-to-market 'price risk management' revenue",
+          "note": "A large share of reported revenue came from fair-value gains on energy contracts booked up front, an accounting policy that lets a company report profit it has not yet collected in cash."
+        }
+      ],
+      "quant_points": 33,
+      "qual_points": 48,
+      "score": 81,
+      "verdict": "flag",
+      "cell": "TP"
+    },
+    {
+      "id": "luckin",
+      "name": "Luckin Coffee Inc.",
+      "sector": "Coffee",
+      "currency": "RMB",
+      "ticker": "LKNCY",
+      "cik": "1767582",
+      "point_in_time_year": 2019,
+      "collapse_year": 2020,
+      "source": {
+        "label": "Fabrication figure per Luckin's own restatement disclosed in its FY2020 Form 20-F (filed 2021-06-30); reported 2019 revenue per the Jan 2020 secondary-offering prospectus (424B4)",
+        "url": "https://www.sec.gov/Archives/edgar/data/1767582/000104746920000183/a2240425z424b4.htm"
+      },
+      "outcome": {
+        "truth": "fraud",
+        "headline": "Delisted from Nasdaq Jun 2020; ~RMB 2.12B (~$310M) of 2019 sales fabricated. $180M SEC settlement.",
+        "what": "A special committee found sales, costs, and expenses had been intentionally inflated from Q2 2019. The decisive proof came from on-the-ground receipt counts, not the filings."
+      },
+      "memo": "Luckin is the honest half-catch. The reported growth was absurd, and the receivables did not behave like a cash-only coffee counter should, so a screener would rightly flag it. But the flag alone was not proof, and plenty of real hyper-growth companies look identical on paper. What actually broke Luckin was an anonymous short report backed by thousands of hours of in-store receipt counting. The filings raised the question. Feet on the ground answered it.",
+      "financials": [
+        {
+          "year": 2018,
+          "rev": 840.7,
+          "ni": -1618.7,
+          "cfo": -1310,
+          "assets": 4023,
+          "recv": 175
+        },
+        {
+          "year": 2019,
+          "rev": 5180.9,
+          "ni": -3136.0,
+          "cfo": -1230,
+          "assets": 11229,
+          "recv": 665
+        }
+      ],
+      "data_note": null,
+      "signals": [
+        {
+          "key": "accruals",
+          "label": "Accruals to assets",
+          "value": -0.1697390684833912,
+          "format": "pct",
+          "points": 0,
+          "flag": "green",
+          "explain": "Net income minus operating cash flow, over assets. A large positive gap means the profit is on paper, not in the bank. Negative is fine: the cash exceeded the reported profit.",
+          "cites": [
+            {
+              "field": "ni",
+              "line": "Net income",
+              "year": 2019,
+              "url": "https://www.sec.gov/Archives/edgar/data/1767582/000104746920000183/a2240425z424b4.htm"
+            },
+            {
+              "field": "cfo",
+              "line": "Cash from operations",
+              "year": 2019,
+              "url": "https://www.sec.gov/Archives/edgar/data/1767582/000104746920000183/a2240425z424b4.htm"
+            },
+            {
+              "field": "assets",
+              "line": "Total assets",
+              "year": 2019,
+              "url": "https://www.sec.gov/Archives/edgar/data/1767582/000104746920000183/a2240425z424b4.htm"
+            }
+          ]
+        },
+        {
+          "key": "revenue_growth",
+          "label": "One-year revenue growth",
+          "value": 5.162602593077197,
+          "format": "pct",
+          "points": 28,
+          "flag": "red",
+          "explain": "Year-over-year change in total revenue. Explosive growth is not proof of anything, but revenue that leaps far faster than a real business can is where a detector should stop and look.",
+          "cites": [
+            {
+              "field": "rev",
+              "line": "Total revenue",
+              "year": 2018,
+              "url": "https://www.sec.gov/Archives/edgar/data/1767582/000104746920000183/a2240425z424b4.htm"
+            },
+            {
+              "field": "rev",
+              "line": "Total revenue",
+              "year": 2019,
+              "url": "https://www.sec.gov/Archives/edgar/data/1767582/000104746920000183/a2240425z424b4.htm"
+            }
+          ]
+        },
+        {
+          "key": "receivables_gap",
+          "label": "Receivables growth minus revenue growth",
+          "value": -2.362602593077197,
+          "format": "pct",
+          "points": 0,
+          "flag": "green",
+          "explain": "When money owed grows faster than sales, revenue may be booked before, or without, real collection. Neutral here does not clear a company, it just means this particular tell did not fire.",
+          "cites": [
+            {
+              "field": "recv",
+              "line": "Receivables",
+              "year": 2019,
+              "url": "https://www.sec.gov/Archives/edgar/data/1767582/000104746920000183/a2240425z424b4.htm"
+            },
+            {
+              "field": "rev",
+              "line": "Total revenue",
+              "year": 2019,
+              "url": "https://www.sec.gov/Archives/edgar/data/1767582/000104746920000183/a2240425z424b4.htm"
+            }
+          ]
+        }
+      ],
+      "qual_flags": [
+        {
+          "key": "revenue_implausible",
+          "weight": 18,
+          "label": "Revenue up ~516% in one year on a cash-burning store rollout",
+          "note": "Reported net revenue leapt from RMB 840.7M (2018) to RMB 5,180.9M (2019). Hyper-growth is not proof of fraud, but revenue this steep, this fast, from a company opening stores at a loss, is exactly the profile a detector should stop on."
+        },
+        {
+          "key": "receivables_gap",
+          "weight": 8,
+          "label": "Receivables and prepayments growing faster than a cash business should need",
+          "note": "For a coffee chain that collects at the counter, receivables and prepaid balances that swell alongside 'revenue' hint that the sales may not be converting to cash the way real transactions do."
+        },
+        {
+          "key": "restatement",
+          "weight": 20,
+          "label": "Later confirmed: ~RMB 2.12B of 2019 sales were fabricated",
+          "note": "Luckin's own special committee found roughly RMB 2,119M of 2019 net sales were fabricated. Included so the record is honest about what was eventually proven, though this was not visible in the filing at the time."
+        }
+      ],
+      "quant_points": 28,
+      "qual_points": 46,
+      "score": 74,
+      "verdict": "flag",
+      "cell": "TP"
+    },
+    {
+      "id": "worldcom",
+      "name": "WorldCom, Inc.",
+      "sector": "Telecom",
+      "currency": "USD",
+      "ticker": "WCOM",
+      "cik": "723527",
+      "point_in_time_year": 2001,
+      "collapse_year": 2002,
+      "source": {
+        "label": "WorldCom FY2001 Form 10-K405 (filed 2002-03-13, the last annual report before the fraud was disclosed)",
+        "url": "https://www.sec.gov/Archives/edgar/data/723527/000100547702001226/d02-36461.txt"
+      },
+      "outcome": {
+        "truth": "fraud",
+        "headline": "Bankrupt Jul 2002. ~$11B accounting fraud, ~$107B in assets, then the largest US bankruptcy ever.",
+        "what": "Ordinary operating 'line costs' were capitalized as assets to inflate profit and hide a collapsing business. CEO Bernard Ebbers sentenced to 25 years."
+      },
+      "memo": "WorldCom is the catchable one. You did not need the smoking gun to be suspicious. Revenue was falling, the whole long-distance industry was losing money, and yet WorldCom was still spending like it was 1999 and still reporting a healthy profit. Capital spending that will not fall when revenue does is the classic tell for capitalizing costs that should have been expensed. A screener that watches capex intensity and margin-versus-peers flags this a year before the restatement.",
+      "financials": [
+        {
+          "year": 1999,
+          "rev": 35908,
+          "ni": 3941,
+          "cfo": 11005,
+          "assets": 91072,
+          "capex": 8716
+        },
+        {
+          "year": 2000,
+          "rev": 39090,
+          "ni": 4088,
+          "cfo": 7666,
+          "assets": 98903,
+          "capex": 11484
+        },
+        {
+          "year": 2001,
+          "rev": 35179,
+          "ni": 1384,
+          "cfo": 7994,
+          "assets": 103914,
+          "capex": 7886
+        }
+      ],
+      "data_note": null,
+      "signals": [
+        {
+          "key": "accruals",
+          "label": "Accruals to assets",
+          "value": -0.06361029312700887,
+          "format": "pct",
+          "points": 0,
+          "flag": "green",
+          "explain": "Net income minus operating cash flow, over assets. A large positive gap means the profit is on paper, not in the bank. Negative is fine: the cash exceeded the reported profit.",
+          "cites": [
+            {
+              "field": "ni",
+              "line": "Net income",
+              "year": 2001,
+              "url": "https://www.sec.gov/Archives/edgar/data/723527/000100547702001226/d02-36461.txt"
+            },
+            {
+              "field": "cfo",
+              "line": "Cash from operations",
+              "year": 2001,
+              "url": "https://www.sec.gov/Archives/edgar/data/723527/000100547702001226/d02-36461.txt"
+            },
+            {
+              "field": "assets",
+              "line": "Total assets",
+              "year": 2001,
+              "url": "https://www.sec.gov/Archives/edgar/data/723527/000100547702001226/d02-36461.txt"
+            }
+          ]
+        },
+        {
+          "key": "cash_conversion",
+          "label": "Cash conversion (CFO / net income)",
+          "value": 5.776011560693641,
+          "format": "x",
+          "points": 0,
+          "flag": "green",
+          "explain": "How many dollars of operating cash each dollar of reported profit turned into. Below one, and especially below zero, means the earnings are not showing up as cash.",
+          "cites": [
+            {
+              "field": "cfo",
+              "line": "Cash from operations",
+              "year": 2001,
+              "url": "https://www.sec.gov/Archives/edgar/data/723527/000100547702001226/d02-36461.txt"
+            },
+            {
+              "field": "ni",
+              "line": "Net income",
+              "year": 2001,
+              "url": "https://www.sec.gov/Archives/edgar/data/723527/000100547702001226/d02-36461.txt"
+            }
+          ]
+        },
+        {
+          "key": "revenue_growth",
+          "label": "One-year revenue growth",
+          "value": -0.10005116398055769,
+          "format": "pct",
+          "points": 0,
+          "flag": "green",
+          "explain": "Year-over-year change in total revenue. Explosive growth is not proof of anything, but revenue that leaps far faster than a real business can is where a detector should stop and look.",
+          "cites": [
+            {
+              "field": "rev",
+              "line": "Total revenue",
+              "year": 2000,
+              "url": "https://www.sec.gov/Archives/edgar/data/723527/000100547702001226/d02-36461.txt"
+            },
+            {
+              "field": "rev",
+              "line": "Total revenue",
+              "year": 2001,
+              "url": "https://www.sec.gov/Archives/edgar/data/723527/000100547702001226/d02-36461.txt"
+            }
+          ]
+        },
+        {
+          "key": "capex_absorption",
+          "label": "Capex as share of operating cash",
+          "value": 0.9864898674005504,
+          "format": "pct",
+          "points": 30,
+          "flag": "red",
+          "explain": "Capital spending divided by operating cash flow. Near or above one means almost every dollar of 'operating' cash went straight back out as capital spending, which is exactly what capitalizing ordinary expenses looks like. Revenue fell this year while capital spending stayed heavy, the fingerprint of moving operating costs onto the balance sheet.",
+          "cites": [
+            {
+              "field": "capex",
+              "line": "Capital expenditures",
+              "year": 2001,
+              "url": "https://www.sec.gov/Archives/edgar/data/723527/000100547702001226/d02-36461.txt"
+            },
+            {
+              "field": "cfo",
+              "line": "Cash from operations",
+              "year": 2001,
+              "url": "https://www.sec.gov/Archives/edgar/data/723527/000100547702001226/d02-36461.txt"
+            }
+          ]
+        }
+      ],
+      "qual_flags": [
+        {
+          "key": "capex_intensity",
+          "weight": 14,
+          "label": "Capital spending stayed enormous while revenue fell",
+          "note": "Revenue dropped from $39.1B (2000) to $35.2B (2001), yet the company kept spending ~$7.9B on capital assets, ~22% of revenue, far above a telecom in a downturn. That is the exact fingerprint of moving operating costs onto the balance sheet."
+        },
+        {
+          "key": "margin_implausible",
+          "weight": 12,
+          "label": "Reported a profit while telecom peers posted losses",
+          "note": "WorldCom booked $1.4B of net income in 2001 during the telecom depression that pushed most long-distance carriers into losses. Being the one profitable carrier in a sinking sector is a signal, not a strength."
+        }
+      ],
+      "quant_points": 30,
+      "qual_points": 26,
+      "score": 56,
+      "verdict": "flag",
+      "cell": "TP"
+    },
+    {
+      "id": "netflix",
+      "name": "Netflix, Inc.",
+      "sector": "Streaming",
+      "currency": "USD",
+      "ticker": null,
+      "cik": "1065280",
+      "point_in_time_year": 2019,
+      "collapse_year": null,
+      "source": {
+        "label": "SEC XBRL companyfacts, FY2019 Form 10-K",
+        "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=1065280&type=10-K",
+        "filing": "https://www.sec.gov/Archives/edgar/data/1065280/000106528021000040/"
+      },
+      "outcome": {
+        "truth": "healthy",
+        "headline": "Not a fraud. A real, audited, still-operating company. Included as an honest false-positive test.",
+        "what": "For years Netflix reported accounting profit while burning billions in cash on content. The gap between profit and cash flow is real and is exactly what an earnings-quality screen flags. It was disclosed, financed, and legitimate."
+      },
+      "memo": "Netflix is the trap. From 2015 to 2019 it reported growing profits while free cash flow ran deeply negative, because it paid cash for content long before expensing it. On an accrual or cash-conversion screen this looks alarming, the same shape as an earnings manipulator. But Netflix disclosed all of it, funded it openly with debt, and delivered. A detector that flags cash-poor profit will flag Netflix, and it will be wrong. The false positive is the point: aggressive-looking is not the same as fraudulent.",
+      "financials": [
+        {
+          "year": 2015,
+          "rev": 6779.511,
+          "ni": 122.641,
+          "cfo": -749.439,
+          "capex": 91.248,
+          "assets": 10202.871,
+          "liab": 7979.445
+        },
+        {
+          "year": 2016,
+          "rev": 8830.669,
+          "ni": 186.678,
+          "cfo": -1473.984,
+          "capex": 107.653,
+          "assets": 13586.61,
+          "liab": 10906.81
+        },
+        {
+          "year": 2017,
+          "rev": 11692.713,
+          "ni": 558.929,
+          "cfo": -1785.948,
+          "capex": 173.302,
+          "assets": 19012.742,
+          "liab": 15430.786
+        },
+        {
+          "year": 2018,
+          "rev": 15794.341,
+          "ni": 1211.242,
+          "cfo": -2680.479,
+          "capex": 173.946,
+          "assets": 25974.4,
+          "liab": 20735.635
+        },
+        {
+          "year": 2019,
+          "rev": 20156.447,
+          "ni": 1866.916,
+          "cfo": -2887.322,
+          "capex": 253.035,
+          "assets": 33975.712,
+          "liab": 26393.555
+        }
+      ],
+      "data_note": null,
+      "signals": [
+        {
+          "key": "accruals",
+          "label": "Accruals to assets",
+          "value": 0.13993048916826234,
+          "format": "pct",
+          "points": 28,
+          "flag": "red",
+          "explain": "Net income minus operating cash flow, over assets. A large positive gap means the profit is on paper, not in the bank. Negative is fine: the cash exceeded the reported profit.",
+          "cites": [
+            {
+              "field": "ni",
+              "line": "Net income",
+              "year": 2019,
+              "url": "https://www.sec.gov/Archives/edgar/data/1065280/000106528021000040/"
+            },
+            {
+              "field": "cfo",
+              "line": "Cash from operations",
+              "year": 2019,
+              "url": "https://www.sec.gov/Archives/edgar/data/1065280/000106528021000040/"
+            },
+            {
+              "field": "assets",
+              "line": "Total assets",
+              "year": 2019,
+              "url": "https://www.sec.gov/Archives/edgar/data/1065280/000106528021000040/"
+            }
+          ]
+        },
+        {
+          "key": "cash_conversion",
+          "label": "Cash conversion (CFO / net income)",
+          "value": -1.5465730648834763,
+          "format": "x",
+          "points": 28,
+          "flag": "red",
+          "explain": "How many dollars of operating cash each dollar of reported profit turned into. Below one, and especially below zero, means the earnings are not showing up as cash.",
+          "cites": [
+            {
+              "field": "cfo",
+              "line": "Cash from operations",
+              "year": 2019,
+              "url": "https://www.sec.gov/Archives/edgar/data/1065280/000106528021000040/"
+            },
+            {
+              "field": "ni",
+              "line": "Net income",
+              "year": 2019,
+              "url": "https://www.sec.gov/Archives/edgar/data/1065280/000106528021000040/"
+            }
+          ]
+        },
+        {
+          "key": "revenue_growth",
+          "label": "One-year revenue growth",
+          "value": 0.27618157667990073,
+          "format": "pct",
+          "points": 0,
+          "flag": "green",
+          "explain": "Year-over-year change in total revenue. Explosive growth is not proof of anything, but revenue that leaps far faster than a real business can is where a detector should stop and look.",
+          "cites": [
+            {
+              "field": "rev",
+              "line": "Total revenue",
+              "year": 2018,
+              "url": "https://www.sec.gov/Archives/edgar/data/1065280/000106528021000040/"
+            },
+            {
+              "field": "rev",
+              "line": "Total revenue",
+              "year": 2019,
+              "url": "https://www.sec.gov/Archives/edgar/data/1065280/000106528021000040/"
+            }
+          ]
+        },
+        {
+          "key": "leverage",
+          "label": "Liabilities to assets",
+          "value": 0.7768359644677939,
+          "format": "pct",
+          "points": 0,
+          "flag": "green",
+          "explain": "Share of the balance sheet financed by debt and other obligations. High and rising leverage is context, not a verdict, but it raises the stakes on everything else.",
+          "cites": [
+            {
+              "field": "liab",
+              "line": "Total liabilities",
+              "year": 2019,
+              "url": "https://www.sec.gov/Archives/edgar/data/1065280/000106528021000040/"
+            },
+            {
+              "field": "assets",
+              "line": "Total assets",
+              "year": 2019,
+              "url": "https://www.sec.gov/Archives/edgar/data/1065280/000106528021000040/"
+            }
+          ]
+        }
+      ],
+      "qual_flags": [],
+      "quant_points": 56,
+      "qual_points": 0,
+      "score": 56,
+      "verdict": "flag",
+      "cell": "FP"
+    },
+    {
+      "id": "wirecard",
+      "name": "Wirecard AG",
+      "sector": "Payments",
+      "currency": "EUR",
+      "ticker": "WDI",
+      "cik": null,
+      "point_in_time_year": 2018,
+      "collapse_year": 2020,
+      "source": {
+        "label": "Wirecard AG FY2018 Annual Report (IFRS). Wirecard was a German (Frankfurt) filer with no SEC financial statements, so these figures are outside EDGAR and are shown with that caveat.",
+        "url": "https://www.wirecard.com/"
+      },
+      "outcome": {
+        "truth": "fraud",
+        "headline": "Insolvent Jun 2020. EUR 1.9B of cash that did not exist. Former CEO on trial; COO a fugitive.",
+        "what": "For years the auditors signed off on cash held in Asian trustee accounts. In 2020 the banks said the accounts, and the money, were never real."
+      },
+      "memo": "Wirecard is the case that keeps a forensic analyst honest. Read the 2018 numbers cold and you see a fintech growing fast with real profit, positive cash flow, and a strong balance sheet. There is no accrual anomaly to catch, no margin that looks impossible, no leverage spike. The EUR 1.9B at the center of the fraud was reported as cash sitting safely in trust. A detector that scores what is IN the filings scores Wirecard clean, because the lie was an asset that did not exist, not a number that looked wrong. This is why the honest answer to 'could AI have caught it' is sometimes no.",
+      "financials": [
+        {
+          "year": 2017,
+          "rev": 1490,
+          "ni": 260,
+          "cfo": 279,
+          "assets": 4652,
+          "liab": 2418
+        },
+        {
+          "year": 2018,
+          "rev": 2016,
+          "ni": 347,
+          "cfo": 210,
+          "assets": 5855,
+          "liab": 3444
+        }
+      ],
+      "data_note": null,
+      "signals": [
+        {
+          "key": "accruals",
+          "label": "Accruals to assets",
+          "value": 0.02339880444064902,
+          "format": "pct",
+          "points": 0,
+          "flag": "green",
+          "explain": "Net income minus operating cash flow, over assets. A large positive gap means the profit is on paper, not in the bank. Negative is fine: the cash exceeded the reported profit.",
+          "cites": [
+            {
+              "field": "ni",
+              "line": "Net income",
+              "year": 2018,
+              "url": "https://www.wirecard.com/"
+            },
+            {
+              "field": "cfo",
+              "line": "Cash from operations",
+              "year": 2018,
+              "url": "https://www.wirecard.com/"
+            },
+            {
+              "field": "assets",
+              "line": "Total assets",
+              "year": 2018,
+              "url": "https://www.wirecard.com/"
+            }
+          ]
+        },
+        {
+          "key": "cash_conversion",
+          "label": "Cash conversion (CFO / net income)",
+          "value": 0.6051873198847262,
+          "format": "x",
+          "points": 14,
+          "flag": "amber",
+          "explain": "How many dollars of operating cash each dollar of reported profit turned into. Below one, and especially below zero, means the earnings are not showing up as cash.",
+          "cites": [
+            {
+              "field": "cfo",
+              "line": "Cash from operations",
+              "year": 2018,
+              "url": "https://www.wirecard.com/"
+            },
+            {
+              "field": "ni",
+              "line": "Net income",
+              "year": 2018,
+              "url": "https://www.wirecard.com/"
+            }
+          ]
+        },
+        {
+          "key": "revenue_growth",
+          "label": "One-year revenue growth",
+          "value": 0.353020134228188,
+          "format": "pct",
+          "points": 12,
+          "flag": "amber",
+          "explain": "Year-over-year change in total revenue. Explosive growth is not proof of anything, but revenue that leaps far faster than a real business can is where a detector should stop and look.",
+          "cites": [
+            {
+              "field": "rev",
+              "line": "Total revenue",
+              "year": 2017,
+              "url": "https://www.wirecard.com/"
+            },
+            {
+              "field": "rev",
+              "line": "Total revenue",
+              "year": 2018,
+              "url": "https://www.wirecard.com/"
+            }
+          ]
+        },
+        {
+          "key": "leverage",
+          "label": "Liabilities to assets",
+          "value": 0.5882152006831768,
+          "format": "pct",
+          "points": 0,
+          "flag": "green",
+          "explain": "Share of the balance sheet financed by debt and other obligations. High and rising leverage is context, not a verdict, but it raises the stakes on everything else.",
+          "cites": [
+            {
+              "field": "liab",
+              "line": "Total liabilities",
+              "year": 2018,
+              "url": "https://www.wirecard.com/"
+            },
+            {
+              "field": "assets",
+              "line": "Total assets",
+              "year": 2018,
+              "url": "https://www.wirecard.com/"
+            }
+          ]
+        }
+      ],
+      "qual_flags": [],
+      "quant_points": 26,
+      "qual_points": 0,
+      "score": 26,
+      "verdict": "clear",
+      "cell": "FN"
+    },
+    {
+      "id": "exxonmobil",
+      "name": "Exxon Mobil Corp.",
+      "sector": "Energy",
+      "currency": "USD",
+      "ticker": null,
+      "cik": "34088",
+      "point_in_time_year": 2019,
+      "collapse_year": null,
+      "source": {
+        "label": "SEC XBRL companyfacts, FY2019 Form 10-K",
+        "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=34088&type=10-K",
+        "filing": "https://www.sec.gov/Archives/edgar/data/34088/000003408821000012/"
+      },
+      "outcome": {
+        "truth": "healthy",
+        "headline": "Clean control. Enron's sector peer.",
+        "what": "Cash flow that backs earnings, steady leverage, no growth implausibility. What a real energy major looks like next to Enron."
+      },
+      "memo": "The energy control. Earnings backed by cash, a balance sheet that moves slowly, revenue that tracks oil prices instead of leaping 150% in a year. Set beside Enron, ExxonMobil is what 'boring and real' reads like on a screen.",
+      "financials": [
+        {
+          "year": 2013,
+          "ni": 32580.0,
+          "capex": 33669.0,
+          "assets": 346808.0,
+          "liab": 166313.0,
+          "recv": 25993.0
+        },
+        {
+          "year": 2014,
+          "ni": 32520.0,
+          "capex": 32952.0,
+          "assets": 349493.0,
+          "liab": 168429.0,
+          "recv": 18541.0
+        },
+        {
+          "year": 2015,
+          "ni": 16150.0,
+          "cfo": 30344.0,
+          "capex": 26490.0,
+          "assets": 336758.0,
+          "liab": 159948.0,
+          "recv": 13243.0
+        },
+        {
+          "year": 2016,
+          "ni": 7840.0,
+          "cfo": 22082.0,
+          "capex": 16163.0,
+          "assets": 330314.0,
+          "liab": 156484.0,
+          "recv": 16033.0
+        },
+        {
+          "year": 2017,
+          "rev": 237162.0,
+          "ni": 19710.0,
+          "cfo": 30066.0,
+          "capex": 15402.0,
+          "assets": 348691.0,
+          "liab": 154191.0,
+          "recv": 21274.0
+        },
+        {
+          "year": 2018,
+          "rev": 279332.0,
+          "ni": 20840.0,
+          "cfo": 36014.0,
+          "capex": 19574.0,
+          "assets": 346196.0,
+          "liab": 147668.0,
+          "recv": 19638.0
+        },
+        {
+          "year": 2019,
+          "rev": 255583.0,
+          "ni": 14340.0,
+          "cfo": 29716.0,
+          "capex": 24361.0,
+          "assets": 362597.0,
+          "liab": 163659.0,
+          "recv": 21100.0
+        }
+      ],
+      "data_note": null,
+      "signals": [
+        {
+          "key": "accruals",
+          "label": "Accruals to assets",
+          "value": -0.042405204676265934,
+          "format": "pct",
+          "points": 0,
+          "flag": "green",
+          "explain": "Net income minus operating cash flow, over assets. A large positive gap means the profit is on paper, not in the bank. Negative is fine: the cash exceeded the reported profit.",
+          "cites": [
+            {
+              "field": "ni",
+              "line": "Net income",
+              "year": 2019,
+              "url": "https://www.sec.gov/Archives/edgar/data/34088/000003408821000012/"
+            },
+            {
+              "field": "cfo",
+              "line": "Cash from operations",
+              "year": 2019,
+              "url": "https://www.sec.gov/Archives/edgar/data/34088/000003408821000012/"
+            },
+            {
+              "field": "assets",
+              "line": "Total assets",
+              "year": 2019,
+              "url": "https://www.sec.gov/Archives/edgar/data/34088/000003408821000012/"
+            }
+          ]
+        },
+        {
+          "key": "cash_conversion",
+          "label": "Cash conversion (CFO / net income)",
+          "value": 2.0722454672245467,
+          "format": "x",
+          "points": 0,
+          "flag": "green",
+          "explain": "How many dollars of operating cash each dollar of reported profit turned into. Below one, and especially below zero, means the earnings are not showing up as cash.",
+          "cites": [
+            {
+              "field": "cfo",
+              "line": "Cash from operations",
+              "year": 2019,
+              "url": "https://www.sec.gov/Archives/edgar/data/34088/000003408821000012/"
+            },
+            {
+              "field": "ni",
+              "line": "Net income",
+              "year": 2019,
+              "url": "https://www.sec.gov/Archives/edgar/data/34088/000003408821000012/"
+            }
+          ]
+        },
+        {
+          "key": "revenue_growth",
+          "label": "One-year revenue growth",
+          "value": -0.08502069222287456,
+          "format": "pct",
+          "points": 0,
+          "flag": "green",
+          "explain": "Year-over-year change in total revenue. Explosive growth is not proof of anything, but revenue that leaps far faster than a real business can is where a detector should stop and look.",
+          "cites": [
+            {
+              "field": "rev",
+              "line": "Total revenue",
+              "year": 2018,
+              "url": "https://www.sec.gov/Archives/edgar/data/34088/000003408821000012/"
+            },
+            {
+              "field": "rev",
+              "line": "Total revenue",
+              "year": 2019,
+              "url": "https://www.sec.gov/Archives/edgar/data/34088/000003408821000012/"
+            }
+          ]
+        },
+        {
+          "key": "capex_absorption",
+          "label": "Capex as share of operating cash",
+          "value": 0.8197940503432495,
+          "format": "pct",
+          "points": 12,
+          "flag": "amber",
+          "explain": "Capital spending divided by operating cash flow. Near or above one means almost every dollar of 'operating' cash went straight back out as capital spending, which is exactly what capitalizing ordinary expenses looks like.",
+          "cites": [
+            {
+              "field": "capex",
+              "line": "Capital expenditures",
+              "year": 2019,
+              "url": "https://www.sec.gov/Archives/edgar/data/34088/000003408821000012/"
+            },
+            {
+              "field": "cfo",
+              "line": "Cash from operations",
+              "year": 2019,
+              "url": "https://www.sec.gov/Archives/edgar/data/34088/000003408821000012/"
+            }
+          ]
+        },
+        {
+          "key": "receivables_gap",
+          "label": "Receivables growth minus revenue growth",
+          "value": 0.15946819196826623,
+          "format": "pct",
+          "points": 8,
+          "flag": "amber",
+          "explain": "When money owed grows faster than sales, revenue may be booked before, or without, real collection. Neutral here does not clear a company, it just means this particular tell did not fire.",
+          "cites": [
+            {
+              "field": "recv",
+              "line": "Receivables",
+              "year": 2019,
+              "url": "https://www.sec.gov/Archives/edgar/data/34088/000003408821000012/"
+            },
+            {
+              "field": "rev",
+              "line": "Total revenue",
+              "year": 2019,
+              "url": "https://www.sec.gov/Archives/edgar/data/34088/000003408821000012/"
+            }
+          ]
+        },
+        {
+          "key": "leverage",
+          "label": "Liabilities to assets",
+          "value": 0.45135232779090834,
+          "format": "pct",
+          "points": 0,
+          "flag": "green",
+          "explain": "Share of the balance sheet financed by debt and other obligations. High and rising leverage is context, not a verdict, but it raises the stakes on everything else.",
+          "cites": [
+            {
+              "field": "liab",
+              "line": "Total liabilities",
+              "year": 2019,
+              "url": "https://www.sec.gov/Archives/edgar/data/34088/000003408821000012/"
+            },
+            {
+              "field": "assets",
+              "line": "Total assets",
+              "year": 2019,
+              "url": "https://www.sec.gov/Archives/edgar/data/34088/000003408821000012/"
+            }
+          ]
+        }
+      ],
+      "qual_flags": [],
+      "quant_points": 20,
+      "qual_points": 0,
+      "score": 20,
+      "verdict": "clear",
+      "cell": "TN"
+    },
+    {
+      "id": "starbucks",
+      "name": "Starbucks Corp.",
+      "sector": "Coffee",
+      "currency": "USD",
+      "ticker": null,
+      "cik": "829224",
+      "point_in_time_year": 2019,
+      "collapse_year": null,
+      "source": {
+        "label": "SEC XBRL companyfacts, FY2019 Form 10-K",
+        "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=829224&type=10-K",
+        "filing": "https://www.sec.gov/Archives/edgar/data/829224/000082922420000078/"
+      },
+      "outcome": {
+        "truth": "healthy",
+        "headline": "Clean control. Luckin's sector peer.",
+        "what": "Mature, cash-generative coffee retail. Growth is single digit and profit converts to cash."
+      },
+      "memo": "The coffee control. A mature chain that grows at single digits and turns profit into cash. Luckin claimed to be a faster, hungrier Starbucks. The contrast on the numbers is the whole story.",
+      "financials": [
+        {
+          "year": 2013,
+          "rev": 14892.2,
+          "ni": 8.3,
+          "cfo": 2908.3,
+          "capex": 1151.2,
+          "assets": 11516.7,
+          "liab": 7034.4,
+          "recv": 561.4
+        },
+        {
+          "year": 2014,
+          "ni": 2068.1,
+          "cfo": 607.8,
+          "capex": 1160.9,
+          "assets": 10752.9,
+          "liab": 5479.2,
+          "recv": 631.0
+        },
+        {
+          "year": 2015,
+          "ni": 2757.4,
+          "cfo": 3749.1,
+          "capex": 1303.7,
+          "assets": 12416.3,
+          "liab": 6596.5,
+          "recv": 719.0
+        },
+        {
+          "year": 2016,
+          "rev": 21315.9,
+          "ni": 2817.7,
+          "cfo": 4697.9,
+          "capex": 1440.3,
+          "assets": 14312.5,
+          "liab": 8421.8,
+          "recv": 768.8
+        },
+        {
+          "year": 2017,
+          "rev": 22386.8,
+          "ni": 2884.7,
+          "cfo": 4251.8,
+          "capex": 1519.4,
+          "assets": 14365.6,
+          "liab": 8908.6,
+          "recv": 870.4
+        },
+        {
+          "year": 2018,
+          "rev": 24719.5,
+          "ni": 4518.3,
+          "cfo": 11937.8,
+          "capex": 1976.4,
+          "assets": 24156.4,
+          "liab": 22980.6,
+          "recv": 693.1
+        },
+        {
+          "year": 2019,
+          "rev": 26508.6,
+          "ni": 3599.2,
+          "cfo": 5047.0,
+          "capex": 1806.6,
+          "assets": 19219.6,
+          "liab": 25450.6,
+          "recv": 879.2
+        }
+      ],
+      "data_note": null,
+      "signals": [
+        {
+          "key": "accruals",
+          "label": "Accruals to assets",
+          "value": -0.07532935128722763,
+          "format": "pct",
+          "points": 0,
+          "flag": "green",
+          "explain": "Net income minus operating cash flow, over assets. A large positive gap means the profit is on paper, not in the bank. Negative is fine: the cash exceeded the reported profit.",
+          "cites": [
+            {
+              "field": "ni",
+              "line": "Net income",
+              "year": 2019,
+              "url": "https://www.sec.gov/Archives/edgar/data/829224/000082922420000078/"
+            },
+            {
+              "field": "cfo",
+              "line": "Cash from operations",
+              "year": 2019,
+              "url": "https://www.sec.gov/Archives/edgar/data/829224/000082922420000078/"
+            },
+            {
+              "field": "assets",
+              "line": "Total assets",
+              "year": 2019,
+              "url": "https://www.sec.gov/Archives/edgar/data/829224/000082922420000078/"
+            }
+          ]
+        },
+        {
+          "key": "cash_conversion",
+          "label": "Cash conversion (CFO / net income)",
+          "value": 1.4022560569015337,
+          "format": "x",
+          "points": 0,
+          "flag": "green",
+          "explain": "How many dollars of operating cash each dollar of reported profit turned into. Below one, and especially below zero, means the earnings are not showing up as cash.",
+          "cites": [
+            {
+              "field": "cfo",
+              "line": "Cash from operations",
+              "year": 2019,
+              "url": "https://www.sec.gov/Archives/edgar/data/829224/000082922420000078/"
+            },
+            {
+              "field": "ni",
+              "line": "Net income",
+              "year": 2019,
+              "url": "https://www.sec.gov/Archives/edgar/data/829224/000082922420000078/"
+            }
+          ]
+        },
+        {
+          "key": "revenue_growth",
+          "label": "One-year revenue growth",
+          "value": 0.0723760593863143,
+          "format": "pct",
+          "points": 0,
+          "flag": "green",
+          "explain": "Year-over-year change in total revenue. Explosive growth is not proof of anything, but revenue that leaps far faster than a real business can is where a detector should stop and look.",
+          "cites": [
+            {
+              "field": "rev",
+              "line": "Total revenue",
+              "year": 2018,
+              "url": "https://www.sec.gov/Archives/edgar/data/829224/000082922420000078/"
+            },
+            {
+              "field": "rev",
+              "line": "Total revenue",
+              "year": 2019,
+              "url": "https://www.sec.gov/Archives/edgar/data/829224/000082922420000078/"
+            }
+          ]
+        },
+        {
+          "key": "capex_absorption",
+          "label": "Capex as share of operating cash",
+          "value": 0.35795522092332077,
+          "format": "pct",
+          "points": 0,
+          "flag": "green",
+          "explain": "Capital spending divided by operating cash flow. Near or above one means almost every dollar of 'operating' cash went straight back out as capital spending, which is exactly what capitalizing ordinary expenses looks like.",
+          "cites": [
+            {
+              "field": "capex",
+              "line": "Capital expenditures",
+              "year": 2019,
+              "url": "https://www.sec.gov/Archives/edgar/data/829224/000082922420000078/"
+            },
+            {
+              "field": "cfo",
+              "line": "Cash from operations",
+              "year": 2019,
+              "url": "https://www.sec.gov/Archives/edgar/data/829224/000082922420000078/"
+            }
+          ]
+        },
+        {
+          "key": "receivables_gap",
+          "label": "Receivables growth minus revenue growth",
+          "value": 0.19612776401579213,
+          "format": "pct",
+          "points": 8,
+          "flag": "amber",
+          "explain": "When money owed grows faster than sales, revenue may be booked before, or without, real collection. Neutral here does not clear a company, it just means this particular tell did not fire.",
+          "cites": [
+            {
+              "field": "recv",
+              "line": "Receivables",
+              "year": 2019,
+              "url": "https://www.sec.gov/Archives/edgar/data/829224/000082922420000078/"
+            },
+            {
+              "field": "rev",
+              "line": "Total revenue",
+              "year": 2019,
+              "url": "https://www.sec.gov/Archives/edgar/data/829224/000082922420000078/"
+            }
+          ]
+        },
+        {
+          "key": "leverage",
+          "label": "Liabilities to assets",
+          "value": 1.3242002955316448,
+          "format": "pct",
+          "points": 10,
+          "flag": "amber",
+          "explain": "Share of the balance sheet financed by debt and other obligations. High and rising leverage is context, not a verdict, but it raises the stakes on everything else.",
+          "cites": [
+            {
+              "field": "liab",
+              "line": "Total liabilities",
+              "year": 2019,
+              "url": "https://www.sec.gov/Archives/edgar/data/829224/000082922420000078/"
+            },
+            {
+              "field": "assets",
+              "line": "Total assets",
+              "year": 2019,
+              "url": "https://www.sec.gov/Archives/edgar/data/829224/000082922420000078/"
+            }
+          ]
+        }
+      ],
+      "qual_flags": [],
+      "quant_points": 18,
+      "qual_points": 0,
+      "score": 18,
+      "verdict": "clear",
+      "cell": "TN"
+    },
+    {
+      "id": "verizon",
+      "name": "Verizon Communications Inc.",
+      "sector": "Telecom",
+      "currency": "USD",
+      "ticker": null,
+      "cik": "732712",
+      "point_in_time_year": 2019,
+      "collapse_year": null,
+      "source": {
+        "label": "SEC XBRL companyfacts, FY2019 Form 10-K",
+        "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=732712&type=10-K",
+        "filing": "https://www.sec.gov/Archives/edgar/data/732712/000073271221000012/"
+      },
+      "outcome": {
+        "truth": "healthy",
+        "headline": "Clean control. WorldCom's sector peer.",
+        "what": "Heavy but stable capital spending that scales with the business, and cash flow that comfortably backs reported profit."
+      },
+      "memo": "The telecom control. Verizon spends heavily on its network, like every carrier, but its capital spending scales with the business and its cash flow covers its earnings. It is the honest version of the business WorldCom pretended to be.",
+      "financials": [
+        {
+          "year": 2013,
+          "rev": 120550.0,
+          "ni": 11497.0,
+          "cfo": 38818.0,
+          "capex": 16604.0,
+          "assets": 274098.0,
+          "recv": 12439.0
+        },
+        {
+          "year": 2014,
+          "rev": 127079.0,
+          "ni": 9625.0,
+          "cfo": 30631.0,
+          "capex": 17191.0,
+          "assets": 232616.0,
+          "recv": 13993.0
+        },
+        {
+          "year": 2015,
+          "rev": 131620.0,
+          "ni": 17879.0,
+          "cfo": 39027.0,
+          "capex": 17775.0,
+          "assets": 244175.0,
+          "recv": 13457.0
+        },
+        {
+          "year": 2016,
+          "rev": 125980.0,
+          "ni": 13127.0,
+          "cfo": 21689.0,
+          "capex": 17059.0,
+          "assets": 244180.0,
+          "recv": 17513.0
+        },
+        {
+          "year": 2017,
+          "rev": 126034.0,
+          "ni": 30101.0,
+          "cfo": 24318.0,
+          "capex": 17247.0,
+          "assets": 257143.0,
+          "recv": 23493.0
+        },
+        {
+          "year": 2018,
+          "rev": 130863.0,
+          "ni": 15528.0,
+          "cfo": 34339.0,
+          "capex": 16658.0,
+          "assets": 264829.0,
+          "recv": 25102.0
+        },
+        {
+          "year": 2019,
+          "rev": 131868.0,
+          "ni": 19265.0,
+          "cfo": 35746.0,
+          "assets": 291727.0,
+          "recv": 25429.0
+        }
+      ],
+      "data_note": null,
+      "signals": [
+        {
+          "key": "accruals",
+          "label": "Accruals to assets",
+          "value": -0.05649459940286638,
+          "format": "pct",
+          "points": 0,
+          "flag": "green",
+          "explain": "Net income minus operating cash flow, over assets. A large positive gap means the profit is on paper, not in the bank. Negative is fine: the cash exceeded the reported profit.",
+          "cites": [
+            {
+              "field": "ni",
+              "line": "Net income",
+              "year": 2019,
+              "url": "https://www.sec.gov/Archives/edgar/data/732712/000073271221000012/"
+            },
+            {
+              "field": "cfo",
+              "line": "Cash from operations",
+              "year": 2019,
+              "url": "https://www.sec.gov/Archives/edgar/data/732712/000073271221000012/"
+            },
+            {
+              "field": "assets",
+              "line": "Total assets",
+              "year": 2019,
+              "url": "https://www.sec.gov/Archives/edgar/data/732712/000073271221000012/"
+            }
+          ]
+        },
+        {
+          "key": "cash_conversion",
+          "label": "Cash conversion (CFO / net income)",
+          "value": 1.8554892291720737,
+          "format": "x",
+          "points": 0,
+          "flag": "green",
+          "explain": "How many dollars of operating cash each dollar of reported profit turned into. Below one, and especially below zero, means the earnings are not showing up as cash.",
+          "cites": [
+            {
+              "field": "cfo",
+              "line": "Cash from operations",
+              "year": 2019,
+              "url": "https://www.sec.gov/Archives/edgar/data/732712/000073271221000012/"
+            },
+            {
+              "field": "ni",
+              "line": "Net income",
+              "year": 2019,
+              "url": "https://www.sec.gov/Archives/edgar/data/732712/000073271221000012/"
+            }
+          ]
+        },
+        {
+          "key": "revenue_growth",
+          "label": "One-year revenue growth",
+          "value": 0.007679787258430659,
+          "format": "pct",
+          "points": 0,
+          "flag": "green",
+          "explain": "Year-over-year change in total revenue. Explosive growth is not proof of anything, but revenue that leaps far faster than a real business can is where a detector should stop and look.",
+          "cites": [
+            {
+              "field": "rev",
+              "line": "Total revenue",
+              "year": 2018,
+              "url": "https://www.sec.gov/Archives/edgar/data/732712/000073271221000012/"
+            },
+            {
+              "field": "rev",
+              "line": "Total revenue",
+              "year": 2019,
+              "url": "https://www.sec.gov/Archives/edgar/data/732712/000073271221000012/"
+            }
+          ]
+        },
+        {
+          "key": "receivables_gap",
+          "label": "Receivables growth minus revenue growth",
+          "value": 0.005347063191732726,
+          "format": "pct",
+          "points": 0,
+          "flag": "green",
+          "explain": "When money owed grows faster than sales, revenue may be booked before, or without, real collection. Neutral here does not clear a company, it just means this particular tell did not fire.",
+          "cites": [
+            {
+              "field": "recv",
+              "line": "Receivables",
+              "year": 2019,
+              "url": "https://www.sec.gov/Archives/edgar/data/732712/000073271221000012/"
+            },
+            {
+              "field": "rev",
+              "line": "Total revenue",
+              "year": 2019,
+              "url": "https://www.sec.gov/Archives/edgar/data/732712/000073271221000012/"
+            }
+          ]
+        }
+      ],
+      "qual_flags": [],
+      "quant_points": 0,
+      "qual_points": 0,
+      "score": 0,
+      "verdict": "clear",
+      "cell": "TN"
+    },
+    {
+      "id": "costco",
+      "name": "Costco Wholesale Corp.",
+      "sector": "Retail",
+      "currency": "USD",
+      "ticker": null,
+      "cik": "909832",
+      "point_in_time_year": 2019,
+      "collapse_year": null,
+      "source": {
+        "label": "SEC XBRL companyfacts, FY2019 Form 10-K",
+        "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=909832&type=10-K",
+        "filing": "https://www.sec.gov/Archives/edgar/data/909832/000090983220000017/"
+      },
+      "outcome": {
+        "truth": "healthy",
+        "headline": "Clean control. Thin margins, real cash.",
+        "what": "Wafer-thin retail margins that could look weak, but backed by strong, consistent operating cash flow. Low margin is not a red flag when the cash is real."
+      },
+      "memo": "The low-margin control. Costco earns almost nothing per dollar of sales, which a lazy screen might dislike, but the cash flow is rock solid and consistent. It is the reminder that a thin margin honestly earned is not a warning sign.",
+      "financials": [
+        {
+          "year": 2013,
+          "ni": 2039.0,
+          "cfo": 3437.0,
+          "capex": 2083.0,
+          "assets": 30283.0,
+          "liab": 19271.0,
+          "recv": 1201.0
+        },
+        {
+          "year": 2014,
+          "ni": 2058.0,
+          "cfo": 3984.0,
+          "capex": 1993.0,
+          "assets": 32662.0,
+          "liab": 20509.0,
+          "recv": 1148.0
+        },
+        {
+          "year": 2015,
+          "ni": 2377.0,
+          "capex": 2393.0,
+          "assets": 33017.0,
+          "liab": 22174.0,
+          "recv": 1224.0
+        },
+        {
+          "year": 2016,
+          "rev": 118719.0,
+          "ni": 2350.0,
+          "capex": 2649.0,
+          "assets": 33163.0,
+          "liab": 20831.0,
+          "recv": 1252.0
+        },
+        {
+          "year": 2017,
+          "rev": 129025.0,
+          "ni": 2679.0,
+          "cfo": 6726.0,
+          "capex": 2502.0,
+          "assets": 36347.0,
+          "liab": 25268.0,
+          "recv": 1432.0
+        },
+        {
+          "year": 2018,
+          "rev": 141576.0,
+          "ni": 3134.0,
+          "cfo": 5774.0,
+          "capex": 2969.0,
+          "assets": 40830.0,
+          "liab": 27727.0,
+          "recv": 1669.0
+        },
+        {
+          "year": 2019,
+          "rev": 152703.0,
+          "ni": 3659.0,
+          "cfo": 6356.0,
+          "capex": 2998.0,
+          "assets": 45400.0,
+          "liab": 29816.0,
+          "recv": 1535.0
+        }
+      ],
+      "data_note": null,
+      "signals": [
+        {
+          "key": "accruals",
+          "label": "Accruals to assets",
+          "value": -0.059405286343612335,
+          "format": "pct",
+          "points": 0,
+          "flag": "green",
+          "explain": "Net income minus operating cash flow, over assets. A large positive gap means the profit is on paper, not in the bank. Negative is fine: the cash exceeded the reported profit.",
+          "cites": [
+            {
+              "field": "ni",
+              "line": "Net income",
+              "year": 2019,
+              "url": "https://www.sec.gov/Archives/edgar/data/909832/000090983220000017/"
+            },
+            {
+              "field": "cfo",
+              "line": "Cash from operations",
+              "year": 2019,
+              "url": "https://www.sec.gov/Archives/edgar/data/909832/000090983220000017/"
+            },
+            {
+              "field": "assets",
+              "line": "Total assets",
+              "year": 2019,
+              "url": "https://www.sec.gov/Archives/edgar/data/909832/000090983220000017/"
+            }
+          ]
+        },
+        {
+          "key": "cash_conversion",
+          "label": "Cash conversion (CFO / net income)",
+          "value": 1.7370866356928123,
+          "format": "x",
+          "points": 0,
+          "flag": "green",
+          "explain": "How many dollars of operating cash each dollar of reported profit turned into. Below one, and especially below zero, means the earnings are not showing up as cash.",
+          "cites": [
+            {
+              "field": "cfo",
+              "line": "Cash from operations",
+              "year": 2019,
+              "url": "https://www.sec.gov/Archives/edgar/data/909832/000090983220000017/"
+            },
+            {
+              "field": "ni",
+              "line": "Net income",
+              "year": 2019,
+              "url": "https://www.sec.gov/Archives/edgar/data/909832/000090983220000017/"
+            }
+          ]
+        },
+        {
+          "key": "revenue_growth",
+          "label": "One-year revenue growth",
+          "value": 0.07859382946262072,
+          "format": "pct",
+          "points": 0,
+          "flag": "green",
+          "explain": "Year-over-year change in total revenue. Explosive growth is not proof of anything, but revenue that leaps far faster than a real business can is where a detector should stop and look.",
+          "cites": [
+            {
+              "field": "rev",
+              "line": "Total revenue",
+              "year": 2018,
+              "url": "https://www.sec.gov/Archives/edgar/data/909832/000090983220000017/"
+            },
+            {
+              "field": "rev",
+              "line": "Total revenue",
+              "year": 2019,
+              "url": "https://www.sec.gov/Archives/edgar/data/909832/000090983220000017/"
+            }
+          ]
+        },
+        {
+          "key": "capex_absorption",
+          "label": "Capex as share of operating cash",
+          "value": 0.47168030207677786,
+          "format": "pct",
+          "points": 0,
+          "flag": "green",
+          "explain": "Capital spending divided by operating cash flow. Near or above one means almost every dollar of 'operating' cash went straight back out as capital spending, which is exactly what capitalizing ordinary expenses looks like.",
+          "cites": [
+            {
+              "field": "capex",
+              "line": "Capital expenditures",
+              "year": 2019,
+              "url": "https://www.sec.gov/Archives/edgar/data/909832/000090983220000017/"
+            },
+            {
+              "field": "cfo",
+              "line": "Cash from operations",
+              "year": 2019,
+              "url": "https://www.sec.gov/Archives/edgar/data/909832/000090983220000017/"
+            }
+          ]
+        },
+        {
+          "key": "receivables_gap",
+          "label": "Receivables growth minus revenue growth",
+          "value": -0.15888142682631157,
+          "format": "pct",
+          "points": 0,
+          "flag": "green",
+          "explain": "When money owed grows faster than sales, revenue may be booked before, or without, real collection. Neutral here does not clear a company, it just means this particular tell did not fire.",
+          "cites": [
+            {
+              "field": "recv",
+              "line": "Receivables",
+              "year": 2019,
+              "url": "https://www.sec.gov/Archives/edgar/data/909832/000090983220000017/"
+            },
+            {
+              "field": "rev",
+              "line": "Total revenue",
+              "year": 2019,
+              "url": "https://www.sec.gov/Archives/edgar/data/909832/000090983220000017/"
+            }
+          ]
+        },
+        {
+          "key": "leverage",
+          "label": "Liabilities to assets",
+          "value": 0.6567400881057269,
+          "format": "pct",
+          "points": 0,
+          "flag": "green",
+          "explain": "Share of the balance sheet financed by debt and other obligations. High and rising leverage is context, not a verdict, but it raises the stakes on everything else.",
+          "cites": [
+            {
+              "field": "liab",
+              "line": "Total liabilities",
+              "year": 2019,
+              "url": "https://www.sec.gov/Archives/edgar/data/909832/000090983220000017/"
+            },
+            {
+              "field": "assets",
+              "line": "Total assets",
+              "year": 2019,
+              "url": "https://www.sec.gov/Archives/edgar/data/909832/000090983220000017/"
+            }
+          ]
+        }
+      ],
+      "qual_flags": [],
+      "quant_points": 0,
+      "qual_points": 0,
+      "score": 0,
+      "verdict": "clear",
+      "cell": "TN"
+    }
+  ]
+}
