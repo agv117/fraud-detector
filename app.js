@@ -286,6 +286,16 @@ function renderCase(c) {
         <h1 class="c-name">${esc(c.name)}</h1>
       </div>
 
+      ${
+        c.teaser
+          ? `<div class="case-story">
+        <div class="cs-tag">The story in one line</div>
+        <div class="cs-line">${esc(c.teaser)}</div>
+        ${learnLinks(c, "") ? `<div class="cs-links">${learnLinks(c, "")}</div>` : ""}
+      </div>`
+          : ""
+      }
+
       <div class="verdict">
         <div class="v-box"><div class="vk">The detector said</div><div class="vv v-${c.verdict}">${detTxt}</div><div class="vs">red-flag score ${c.score} / 100 · threshold ${DATA.threshold}</div></div>
         <div class="v-box"><div class="vk">Reality was</div><div class="vv v-${c.outcome.truth}">${truthTxt}</div><div class="vs">${esc(c.outcome.truth === "fraud" ? "collapsed / charged" : "still operating")}</div></div>
@@ -310,7 +320,6 @@ function renderCase(c) {
           <div class="bar"><span>Redacted · click to unseal</span></div>
         </div>
         <div class="what">${esc(c.outcome.what)}</div>
-        ${learnLinks(c, "") ? `<div class="outcome-links">${learnLinks(c, "")}</div>` : ""}
       </div>
 
       <div class="c-label">The filed numbers</div>

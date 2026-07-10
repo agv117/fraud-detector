@@ -14,7 +14,7 @@
       href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700;9..144,900&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=JetBrains+Mono:wght@400;500;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css?v=2" />
+    <link rel="stylesheet" href="styles.css?v=3" />
     <link
       rel="icon"
       href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230b0c0e'/%3E%3Cpath d='M4 18 h6 l2 -8 l3 13 l3 -9 l2 4 h5' fill='none' stroke='%23ff453a' stroke-width='1.7' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E"
@@ -73,8 +73,12 @@
         <p class="dek">
           I ran a fraud detector over the real financial filings of history's
           biggest scams and a few honest companies, using only what was public
-          before each one blew up. Then I published the whole scorecard.
-          <b>The false alarm and the miss are the interesting part.</b>
+          before each one blew up.
+          <b
+            >It caught three, flagged one honest company by mistake, and missed
+            one entirely.</b
+          >
+          Here is the whole scorecard.
         </p>
         <div class="hero-cta">
           <a class="btn-how" href="#method">How it works ↓</a>
@@ -112,62 +116,44 @@
           The point of this project is not to claim the machine wins. It is to
           show, honestly, what the numbers could and could not say.
         </p>
-        <div class="method-grid">
-          <div class="m-card">
-            <h4>01 · Point in time</h4>
-            <p>
-              Each company is scored on the
-              <b>last annual report filed before the fraud was public</b>. No
-              hindsight in the inputs. Hindsight is only in knowing where to
-              look, and that bias is the whole conversation below.
-            </p>
-          </div>
-          <div class="m-card">
-            <h4>02 · A transparent rubric, not a black box</h4>
-            <p>
-              The red-flag score is a <b>deterministic model</b>, not an opaque
-              number an AI made up. Every point traces to a filing figure:
-              accruals, cash conversion, revenue growth, capital-spend versus
-              cash, receivables, leverage. You can see exactly what fired and
-              why.
-            </p>
-          </div>
-          <div class="m-card">
-            <h4>03 · Real filings, cited</h4>
-            <p>
-              Controls come straight from <b>SEC XBRL</b>. The pre-XBRL frauds
-              (Enron, WorldCom) are transcribed from the actual 10-K and every
-              figure links to it. Wirecard is a foreign filer shown with that
-              gap stated out loud, not hidden.
-            </p>
-          </div>
-          <div class="m-card">
-            <h4>04 · Where Claude comes in</h4>
-            <p>
-              The quantitative score is arithmetic. Claude Code did the forensic
-              reading around it: pulling filings, encoding the signals, and
-              writing the <b>point-in-time memo</b> on each case from the
-              footnotes, labelled as the qualitative read it is.
-            </p>
-          </div>
-          <div class="m-card">
-            <h4>05 · Scored against reality</h4>
-            <p>
-              Ground truth is known: three of these were frauds that collapsed,
-              one more too, and four are still-running honest companies. The
-              detector's verdict is graded into a real
-              <b>confusion matrix</b>, true and false, hit and miss.
-            </p>
-          </div>
-          <div class="m-card">
-            <h4>06 · Honest by construction</h4>
-            <p>
-              The controls include a company the detector <b>wrongly flags</b>,
-              and the frauds include one it <b>misses entirely</b>. Those two
-              cells are not failures of the demo. They are the finding.
-            </p>
-          </div>
-        </div>
+        <ol class="steps">
+          <li>
+            <b>It only sees what was public at the time.</b> Each company is
+            scored on the last annual report filed before the fraud came out. No
+            future knowledge in the inputs. The only hindsight is that I knew
+            where to point it, and that bias is the honest catch below.
+          </li>
+          <li>
+            <b>The score is math you can check, not a black box.</b> Every point
+            traces to a real figure in the filing: accruals, cash conversion,
+            revenue growth, capital spending versus cash, receivables, leverage.
+            Open any case and you see exactly which signals fired and by how
+            much.
+          </li>
+          <li>
+            <b>The numbers come straight from the filings.</b> The healthy
+            companies are pulled from SEC data. Enron and WorldCom are older
+            than that system, so their figures are typed from the actual 10-K
+            and every one links back to it. Wirecard is a foreign company shown
+            with that gap stated out loud.
+          </li>
+          <li>
+            <b>Claude did the reading, not the scoring.</b> The score is plain
+            arithmetic. Claude Code pulled and reconciled the filings, built the
+            model, and wrote the short case memo from the footnotes, marked as
+            the judgment call it is.
+          </li>
+          <li>
+            <b>Then it is graded against what really happened.</b> We know who
+            was a fraud and who was not, so every verdict lands in a true or
+            false, hit or miss box. That is the scorecard at the top.
+          </li>
+          <li>
+            <b>The mistakes are on purpose.</b> One honest company gets flagged,
+            one real fraud slips through. Those two are not glitches in the
+            demo. They are the whole point.
+          </li>
+        </ol>
         <div class="method-links">
           <a
             href="https://github.com/agv117/fraud-detector"
@@ -246,6 +232,6 @@
       </div>
     </footer>
 
-    <script src="app.js?v=2"></script>
+    <script src="app.js?v=3"></script>
   </body>
 </html>

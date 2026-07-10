@@ -1454,3 +1454,96 @@ footer {
     display: none;
   }
 }
+
+/* ---------- feedback pass 2: scannable method + case story band ---------- */
+
+/* numbered steps (mirrors the sibling projects' clean hierarchy) */
+.steps {
+  counter-reset: s;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 860px;
+}
+.steps li {
+  position: relative;
+  padding: 18px 20px 18px 58px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  font-family: var(--read);
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--bone-dim);
+  transition: border-color 0.16s;
+}
+.steps li:hover {
+  border-color: rgba(255, 69, 58, 0.4);
+}
+.steps li::before {
+  counter-increment: s;
+  content: counter(s, decimal-leading-zero);
+  position: absolute;
+  left: 16px;
+  top: 17px;
+  font-family: var(--mono);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--blood);
+}
+.steps li b {
+  color: var(--bone);
+  font-weight: 600;
+  font-family: var(--disp);
+  font-size: 17px;
+}
+
+/* case: the story band up top (what this actually was) */
+.case-story {
+  margin: 20px 0 4px;
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--blood);
+  border-radius: 12px;
+  background: linear-gradient(180deg, var(--panel-2), var(--panel));
+  padding: 18px 22px 20px;
+}
+.case-story .cs-tag {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--blood);
+  margin-bottom: 9px;
+}
+.case-story .cs-line {
+  font-family: var(--disp);
+  font-weight: 700;
+  font-size: clamp(20px, 3.2vw, 26px);
+  line-height: 1.22;
+  letter-spacing: -0.01em;
+  color: var(--bone);
+  max-width: 720px;
+}
+.case-story .cs-links {
+  display: flex;
+  gap: 9px;
+  margin-top: 15px;
+  flex-wrap: wrap;
+}
+
+/* stronger, unmistakable ledger hover */
+.led-item {
+  border-left: 2px solid transparent;
+  transition: background 0.16s;
+}
+.led-item:hover,
+.led-item:focus-within {
+  background: linear-gradient(90deg, rgba(255, 69, 58, 0.05), transparent 78%);
+  border-left-color: var(--blood-deep);
+}
+.led-more .teaser::before {
+  content: "▸ ";
+  color: var(--blood);
+  font-size: 12px;
+}
