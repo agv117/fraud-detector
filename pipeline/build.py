@@ -21,7 +21,7 @@ import time
 import urllib.request
 from pathlib import Path
 
-from cases_seed import SEED, XBRL_COMPANIES
+from cases_seed import SEED, XBRL_COMPANIES, TEASER, LEARN
 
 HERE = Path(__file__).resolve().parent
 OUT = HERE.parent / "data" / "cases.json"
@@ -251,6 +251,7 @@ def main():
             "point_in_time_year": s["point_in_time_year"], "collapse_year": s.get("collapse_year"),
             "source": s["source"], "outcome": s["outcome"], "memo": s["memo"],
             "financials": fins, "data_note": s.get("data_note"),
+            "teaser": TEASER.get(s["id"]), "learn": LEARN.get(s["id"]),
             **r,
         })
         print(f"  {s['name']:26} score={r['score']:>3}  {r['verdict']:>5}  truth={s['outcome']['truth']:<7} -> {r['cell']}")
@@ -270,6 +271,7 @@ def main():
             "point_in_time_year": c["years"][-1], "collapse_year": None,
             "source": src, "outcome": c["outcome"], "memo": c["memo"],
             "financials": fins, "data_note": None,
+            "teaser": TEASER.get(c["id"]), "learn": LEARN.get(c["id"]),
             **r,
         })
         print(f"  {c['name']:26} score={r['score']:>3}  {r['verdict']:>5}  truth={c['outcome']['truth']:<7} -> {r['cell']}")

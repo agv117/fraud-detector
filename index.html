@@ -6,7 +6,7 @@
     <title>The Ledger Autopsy — could a detector have caught Enron?</title>
     <meta
       name="description"
-      content="A forensic accountant, run point-in-time over the real SEC filings of history's biggest frauds and a set of healthy controls. The honest scoreboard, false positives and misses included. Every number links to the filing. Built by Anand Vaghasia."
+      content="A fraud detector run over the real SEC filings of history's biggest scams and a set of honest companies, using only what was public before each collapse. The honest scorecard, false alarms and misses included. Every number links to the filing. Built by Anand G. Vaghasia."
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -14,7 +14,7 @@
       href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700;9..144,900&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=JetBrains+Mono:wght@400;500;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css?v=1" />
+    <link rel="stylesheet" href="styles.css?v=2" />
     <link
       rel="icon"
       href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230b0c0e'/%3E%3Cpath d='M4 18 h6 l2 -8 l3 13 l3 -9 l2 4 h5' fill='none' stroke='%23ff453a' stroke-width='1.7' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E"
@@ -68,15 +68,17 @@
 
     <header class="hero" id="home">
       <div class="wrap">
-        <div class="kicker">A forensic accountant, run point-in-time</div>
-        <h1>Could a detector have caught <em>Enron</em>?</h1>
+        <div class="kicker">Built from real SEC filings</div>
+        <h1>Could a computer have caught <em>Enron</em>?</h1>
         <p class="dek">
-          I pointed a transparent red-flag model at the real SEC filings of
-          history's biggest frauds and a set of healthy companies, as of the
-          last annual report before anyone knew. Then I published the whole
-          scoreboard, <b>the false positive and the miss included</b>. The
-          honest answer is not a clean yes.
+          I ran a fraud detector over the real financial filings of history's
+          biggest scams and a few honest companies, using only what was public
+          before each one blew up. Then I published the whole scorecard.
+          <b>The false alarm and the miss are the interesting part.</b>
         </p>
+        <div class="hero-cta">
+          <a class="btn-how" href="#method">How it works ↓</a>
+        </div>
 
         <div class="board" id="board" aria-live="polite">
           <div class="board-load">Loading the case ledger…</div>
@@ -87,9 +89,9 @@
     <main class="wrap">
       <section id="ledger-sec">
         <div class="sec-head">
-          <h2>The case ledger</h2>
+          <h2>Every company it scored</h2>
           <div class="sub" id="ledger-sub">
-            Nine companies, ranked by the detector's red-flag score
+            Worst score first. Hover for the story, click to open the autopsy.
           </div>
         </div>
         <div class="ledger-head" aria-hidden="true">
@@ -220,29 +222,30 @@
       </div>
     </section>
 
-    <footer>
-      <div class="wrap">
-        <div class="foot-main">
-          <span>Built by <b>Anand Vaghasia</b></span>
-          <span class="foot-dot">·</span>
+    <footer class="foot">
+      <div class="wrap foot-inner">
+        <span class="foot-left"
+          ><b>The Ledger Autopsy</b> · Anand G. Vaghasia · 2026</span
+        >
+        <span class="foot-data">SEC EDGAR · XBRL + 10-K filings</span>
+        <span class="foot-right"
+          >Powered by
           <a
-            class="foot-netryse"
             href="https://netryse.com"
             target="_blank"
             rel="noopener"
-            >Powered by NetRyse</a
-          >
-        </div>
-        <div class="foot-fine">
-          Data via SEC EDGAR XBRL and the primary 10-K filings, plus one foreign
-          filer shown with that gap noted · figures are self-reported and lag ·
-          a red-flag score is not an accusation and this is not financial or
-          legal advice ·
-          <a href="https://anandvaghasia.com">anandvaghasia.com</a>
-        </div>
+            class="nr"
+            >NetRyse</a
+          ></span
+        >
+      </div>
+      <div class="wrap foot-fine">
+        Figures are self-reported and lag · a red-flag score is not an
+        accusation and this is not financial or legal advice ·
+        <a href="https://anandvaghasia.com">anandvaghasia.com</a>
       </div>
     </footer>
 
-    <script src="app.js?v=1"></script>
+    <script src="app.js?v=2"></script>
   </body>
 </html>

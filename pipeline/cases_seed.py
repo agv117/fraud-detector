@@ -193,3 +193,34 @@ XBRL_COMPANIES = [
                  "what": "Wafer-thin retail margins that could look weak, but backed by strong, consistent operating cash flow. Low margin is not a red flag when the cash is real."},
      "memo": "The low-margin control. Costco earns almost nothing per dollar of sales, which a lazy screen might dislike, but the cash flow is rock solid and consistent. It is the reminder that a thin margin honestly earned is not a warning sign."},
 ]
+
+
+# Short human "what happened" teaser + learn links per company, attached by id in
+# build.py. Video links are YouTube searches (they never rot and land on the best
+# current explainer). Frauds get a watch link; clean controls just get context.
+TEASER = {
+    "enron": "Hid billions in debt inside partnerships run by its own CFO, then collapsed in weeks.",
+    "worldcom": "Booked everyday operating costs as 'assets' to fake a profit while the business sank.",
+    "luckin": "Fabricated roughly a third of its 2019 sales. An anonymous field report blew it open.",
+    "wirecard": "Reported 1.9 billion euros of cash that simply did not exist.",
+    "netflix": "Not a fraud. It burned cash on content faster than it booked profit, and disclosed all of it.",
+    "exxonmobil": "The boring, honest energy major that Enron only pretended to be.",
+    "verizon": "A real telecom whose heavy spending actually scales with the business.",
+    "starbucks": "A mature coffee chain that grows slowly and turns its profit into cash.",
+    "costco": "Razor-thin margins, rock-solid cash. A low margin honestly earned is not a red flag.",
+}
+LEARN = {
+    "enron": {"wiki": "https://en.wikipedia.org/wiki/Enron_scandal",
+              "video": "https://www.youtube.com/results?search_query=enron+scandal+explained"},
+    "worldcom": {"wiki": "https://en.wikipedia.org/wiki/WorldCom_scandal",
+                 "video": "https://www.youtube.com/results?search_query=worldcom+accounting+fraud+explained"},
+    "luckin": {"wiki": "https://en.wikipedia.org/wiki/Luckin_Coffee",
+               "video": "https://www.youtube.com/results?search_query=luckin+coffee+fraud+explained"},
+    "wirecard": {"wiki": "https://en.wikipedia.org/wiki/Wirecard",
+                 "video": "https://www.youtube.com/results?search_query=wirecard+scandal+explained"},
+    "netflix": {"wiki": "https://en.wikipedia.org/wiki/Netflix"},
+    "exxonmobil": {"wiki": "https://en.wikipedia.org/wiki/ExxonMobil"},
+    "verizon": {"wiki": "https://en.wikipedia.org/wiki/Verizon"},
+    "starbucks": {"wiki": "https://en.wikipedia.org/wiki/Starbucks"},
+    "costco": {"wiki": "https://en.wikipedia.org/wiki/Costco"},
+}

@@ -104,7 +104,18 @@ function renderBoard() {
 }
 
 // ---------- ledger ----------
-function ledgerRow(c) {
+function learnLinks(c, cls) {
+  if (!c.learn) return "";
+  const read = c.learn.wiki
+    ? `<a class="learn-btn ${cls}" href="${esc(c.learn.wiki)}" target="_blank" rel="noopener">Read the story</a>`
+    : "";
+  const watch = c.learn.video
+    ? `<a class="learn-btn watch ${cls}" href="${esc(c.learn.video)}" target="_blank" rel="noopener">Watch the explainer</a>`
+    : "";
+  return read + watch;
+}
+function ledgerItem(c) {
+  const item = el("div", "led-item");
   const r = el("button", "row");
   r.setAttribute("aria-label", `Open the ${c.name} case`);
   const truthTag = c.outcome.truth === "fraud" ? "fraud" : "healthy";
@@ -112,7 +123,7 @@ function ledgerRow(c) {
   const [rtitle] = RESULT_TXT[c.cell];
   r.innerHTML = `
     <div class="r-rank">${String(c._rank).padStart(2, "0")}</div>
-    <div class="r-name">${esc(c.name)}<span class="r-sector">${esc(c.sector)} · point in time FY${c.point_in_time_year}</span></div>
+    <div class="r-name">${esc(c.name)}<span class="r-sector">${esc(c.sector)} · scored on its FY${c.point_in_time_year} filing</span></div>
     <div class="r-score">
       <div class="r-track"><div class="r-fill" style="width:${c.score}%;background:${heat(c.score)}"></div></div>
       <div class="r-scoreval">${c.score}</div>
@@ -122,7 +133,12 @@ function ledgerRow(c) {
     <div class="r-result cell-${c.cell.toLowerCase()}"><span class="dot"></span><span>${rtitle}</span></div>
     <div class="r-go">→</div>`;
   r.onclick = () => (location.hash = c.id);
-  return r;
+  const more = el("div", "led-more");
+  const links = learnLinks(c, "");
+  more.innerHTML = `<div class="teaser">${esc(c.teaser || "")}</div>${links ? `<div class="led-links">${links}</div>` : ""}`;
+  item.appendChild(r);
+  item.appendChild(more);
+  return item;
 }
 function renderLedger() {
   const g = $("#ledger");
@@ -130,7 +146,7 @@ function renderLedger() {
   DATA.cases.forEach((c, i) => {
     c._rank = i + 1;
     BYID[c.id] = c;
-    g.appendChild(ledgerRow(c));
+    g.appendChild(ledgerItem(c));
   });
 }
 
@@ -294,6 +310,7 @@ function renderCase(c) {
           <div class="bar"><span>Redacted · click to unseal</span></div>
         </div>
         <div class="what">${esc(c.outcome.what)}</div>
+        ${learnLinks(c, "") ? `<div class="outcome-links">${learnLinks(c, "")}</div>` : ""}
       </div>
 
       <div class="c-label">The filed numbers</div>

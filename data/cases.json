@@ -58,6 +58,11 @@
         }
       ],
       "data_note": null,
+      "teaser": "Hid billions in debt inside partnerships run by its own CFO, then collapsed in weeks.",
+      "learn": {
+        "wiki": "https://en.wikipedia.org/wiki/Enron_scandal",
+        "video": "https://www.youtube.com/results?search_query=enron+scandal+explained"
+      },
       "signals": [
         {
           "key": "accruals",
@@ -222,6 +227,11 @@
         }
       ],
       "data_note": null,
+      "teaser": "Fabricated roughly a third of its 2019 sales. An anonymous field report blew it open.",
+      "learn": {
+        "wiki": "https://en.wikipedia.org/wiki/Luckin_Coffee",
+        "video": "https://www.youtube.com/results?search_query=luckin+coffee+fraud+explained"
+      },
       "signals": [
         {
           "key": "accruals",
@@ -371,6 +381,11 @@
         }
       ],
       "data_note": null,
+      "teaser": "Booked everyday operating costs as 'assets' to fake a profit while the business sank.",
+      "learn": {
+        "wiki": "https://en.wikipedia.org/wiki/WorldCom_scandal",
+        "video": "https://www.youtube.com/results?search_query=worldcom+accounting+fraud+explained"
+      },
       "signals": [
         {
           "key": "accruals",
@@ -559,6 +574,10 @@
         }
       ],
       "data_note": null,
+      "teaser": "Not a fraud. It burned cash on content faster than it booked profit, and disclosed all of it.",
+      "learn": {
+        "wiki": "https://en.wikipedia.org/wiki/Netflix"
+      },
       "signals": [
         {
           "key": "accruals",
@@ -704,6 +723,11 @@
         }
       ],
       "data_note": null,
+      "teaser": "Reported 1.9 billion euros of cash that simply did not exist.",
+      "learn": {
+        "wiki": "https://en.wikipedia.org/wiki/Wirecard",
+        "video": "https://www.youtube.com/results?search_query=wirecard+scandal+explained"
+      },
       "signals": [
         {
           "key": "accruals",
@@ -898,6 +922,10 @@
         }
       ],
       "data_note": null,
+      "teaser": "The boring, honest energy major that Enron only pretended to be.",
+      "learn": {
+        "wiki": "https://en.wikipedia.org/wiki/ExxonMobil"
+      },
       "signals": [
         {
           "key": "accruals",
@@ -1142,6 +1170,10 @@
         }
       ],
       "data_note": null,
+      "teaser": "A mature coffee chain that grows slowly and turns its profit into cash.",
+      "learn": {
+        "wiki": "https://en.wikipedia.org/wiki/Starbucks"
+      },
       "signals": [
         {
           "key": "accruals",
@@ -1380,6 +1412,10 @@
         }
       ],
       "data_note": null,
+      "teaser": "A real telecom whose heavy spending actually scales with the business.",
+      "learn": {
+        "wiki": "https://en.wikipedia.org/wiki/Verizon"
+      },
       "signals": [
         {
           "key": "accruals",
@@ -1575,6 +1611,10 @@
         }
       ],
       "data_note": null,
+      "teaser": "Razor-thin margins, rock-solid cash. A low margin honestly earned is not a red flag.",
+      "learn": {
+        "wiki": "https://en.wikipedia.org/wiki/Costco"
+      },
       "signals": [
         {
           "key": "accruals",
